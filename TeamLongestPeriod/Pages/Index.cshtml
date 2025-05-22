@@ -1,0 +1,25 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Team Longest Period</h1>
+</div>
+
+<div class="container">
+    <div class="mb-3 mt-3">
+        <div class="mb-3 mt-3 ">
+            <button type="button" class="btn btn-light btn-outline-secondary" onclick="">Download Assignment</button>
+        </div>
+        <form method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <input type="file" name="input" class="form-control" accept=".csv" />
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
