@@ -49,7 +49,7 @@ namespace TeamLongestPeriod.Pages
                 return base.BadRequest(ex.Message);
             }
 
-            this._logger.Log(LogLevel.Information, "Get Index Page");
+            this._logger.Log(LogLevel.Information, "File processed!");
 
             return base.RedirectToAction("OnGet"); //TODO
 		}
