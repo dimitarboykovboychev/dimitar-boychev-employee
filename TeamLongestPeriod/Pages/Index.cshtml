@@ -20,7 +20,7 @@
             </div>
         </form>
 
-        @if(Model.Output != null)
+        @if(Model.Output != null && Model.Output.Count > 0)
         {
             <div class="mb-3 mt-3">
                 <h2>The team with the longest coworking time in days:</h2>

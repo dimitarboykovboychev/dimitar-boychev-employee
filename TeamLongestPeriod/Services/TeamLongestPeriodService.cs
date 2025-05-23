@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using TeamLongestPeriod.Models;
 
@@ -76,6 +77,8 @@ namespace TeamLongestPeriod.Services
 
         private async Task SaveData(Employee employee1, Employee employee2, int overlappingDays)
         {
+            this.ValidateInputData(employee1.EmployeeID, employee2.EmployeeID);
+
             if (this._context.Output.Any(x => x.EmployeeOneID == employee1.EmployeeID && x.EmployeeTwoID == employee2.EmployeeID))
             {
                 var output = this._context.Output.Where(x => x.EmployeeOneID == employee1.EmployeeID && x.EmployeeTwoID == employee2.EmployeeID).Single();
@@ -84,7 +87,7 @@ namespace TeamLongestPeriod.Services
             }
             else
             {
-                this._context.Output.Add(new Output
+                await this._context.Output.AddAsync(new Output
                 {
                     EmployeeOneID = employee1.EmployeeID,
                     EmployeeTwoID = employee2.EmployeeID,
@@ -94,6 +97,14 @@ namespace TeamLongestPeriod.Services
             }
 
             await this._context.SaveChangesAsync();
+        }
+
+        private void ValidateInputData(int employeeOneID, int employeeTwoID)
+        {
+            if(employeeOneID == employeeTwoID)
+            {
+                throw new ValidationException($"The data in the file is corrupt! Check the time spans for employee {employeeOneID}!");
+            }
         }
 
         private async Task ReadInputFile(IFormFile file)
