@@ -2,7 +2,7 @@
 {
     public class Output
     {
-        public string ID { get; set; }
+        public int ID { get; set; }
 
         public int EmployeeOneID {  get; set; }
 

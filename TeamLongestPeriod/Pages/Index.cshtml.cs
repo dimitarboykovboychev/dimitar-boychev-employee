@@ -10,7 +10,8 @@ namespace TeamLongestPeriod.Pages
 		private readonly ILogger<IndexModel> _logger;
 		private readonly ITeamLongestPeriodService _service;
 
-		public Output _output;
+		[BindProperty]
+		public List<Output> Output { get; set; }
 
 		public IndexModel(ILogger<IndexModel> logger, ITeamLongestPeriodService service)
 		{
@@ -27,7 +28,7 @@ namespace TeamLongestPeriod.Pages
 		{
             if (input == null || input.Length == 0)
             {
-				var errorMessage = "Invalid file"; // move to constants.cs
+				var errorMessage = "Plese, select file or verify the file is not empty!"; // move to constants.cs
 
                 this._logger.LogError(errorMessage);
 
@@ -40,7 +41,7 @@ namespace TeamLongestPeriod.Pages
 
 				if (result.Any()) 
 				{
-					_output = result.First();
+					this.Output = result.OrderByDescending(x => x.Days).ToList();
 				}
             }
             catch(Exception ex)
@@ -51,7 +52,7 @@ namespace TeamLongestPeriod.Pages
 
             this._logger.Log(LogLevel.Information, "File processed!");
 
-            return base.RedirectToAction("OnGet"); //TODO
+			return base.Page();
 		}
     }
 }

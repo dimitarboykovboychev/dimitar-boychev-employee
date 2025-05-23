@@ -10,9 +10,7 @@
 
 <div class="container">
     <div class="mb-3 mt-3">
-        <div class="mb-3 mt-3 ">
-            <button type="button" class="btn btn-light btn-outline-secondary" onclick="">Download Assignment</button>
-        </div>
+
         <form method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <input type="file" name="input" class="form-control" accept=".csv" />
@@ -21,5 +19,72 @@
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
+
+        @if(Model.Output != null)
+        {
+            <div class="mb-3 mt-3">
+                <h2>The team with the longest coworking time in days:</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Employee One ID</th>
+                            <th>Employee Two ID</th>
+                            <th>Duration in days</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @{
+                            var team = Model.Output.First();
+
+                            <tr>
+                                <td>
+                                    @team.EmployeeOneID
+                                </td>
+                                <td>
+                                    @team.EmployeeTwoID
+                                </td>
+                                <td>
+                                    @team.Days
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+                <h2>Other projects of the team:</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Project ID</th>
+                            <th>Employee One ID</th>
+                            <th>Employee Two ID</th>
+                            <th>Days coworking</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach(var output in Model.Output)
+                        {
+                            <tr>
+                                <td>
+                                    @output.ProjectID
+                                </td>
+                                <td>
+                                    @output.EmployeeOneID
+                                </td>
+                                <td>
+                                    @output.EmployeeTwoID
+                                </td>
+                                <td>
+                                    @output.Days
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        }
     </div>
 </div>

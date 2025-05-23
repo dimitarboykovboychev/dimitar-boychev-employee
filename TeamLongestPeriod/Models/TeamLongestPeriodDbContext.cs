@@ -12,7 +12,7 @@ namespace TeamLongestPeriod.Models
         {
             optionsBuilder.UseInMemoryDatabase("InMemoryDb");
 
-            //base.OnConfiguring(optionsBuilder);
+            base.OnConfiguring(optionsBuilder);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
